@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siddhivinayak Tours | Premium Travel Since 2005</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* custom animations */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInRight {
+            0% { opacity: 0; transform: translateX(30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 107, 53, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); }
+        }
+
+        .animate-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+            opacity: 0; /* start invisible */
+        }
+
+        .animate-right {
+            animation: fadeInRight 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+
+        /* reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            z-index: 1000;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            border-bottom: 1px solid rgba(255,107,53,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b35, #e65a2e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1e293b;
+            transition: 0.2s;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: #ff6b35;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+
+        /* buttons */
+        .btn-primary {
+            background: #ff6b35;
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.2);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #e55a2a;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ff6b35;
+            color: #ff6b35;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: #ff6b35;
+            color: white;
+        }
+
+        /* hero */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 5% 4rem;
+            background: linear-gradient(145deg, #fff9f5, #ffffff);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,107,53,0.03) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            flex: 1 1 400px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+            color: #0f172a;
+        }
+
+        .hero-highlight {
+            color: #ff6b35;
+            border-bottom: 4px solid rgba(255,107,53,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 2.2rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .hero-image {
+            flex: 1 1 400px;
+            text-align: center;
+            z-index: 2;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-image i {
+            font-size: 14rem;
+            color: #ff6b35;
+            opacity: 0.8;
+            text-shadow: 0 20px 30px rgba(255,107,53,0.15);
+        }
+
+        /* section style */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0f172a;
+            position: relative;
+        }
+
+        .section-title span {
+            color: #ff6b35;
+        }
+
+        .section-subhead {
+            color: #64748b;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 3.5rem;
+            line-height: 1.6;
+        }
+
+        /* cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem 1.8rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+            transition: 0.4s;
+            border: 1px solid rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 0;
+            background: #ff6b35;
+            transition: 0.4s;
+            z-index: -1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(255,107,53,0.1);
+            border-color: rgba(255,107,53,0.2);
+        }
+
+        .service-card:hover:before {
+            height: 100%;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: #ff6b35;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-feature {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .service-feature li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #334155;
+        }
+
+        .service-feature i {
+            color: #ff6b35;
+            font-size: 0.9rem;
+        }
+
+        /* why us */
+        .why-us {
+            background: #f8fafc;
+            border-radius: 60px 60px 0 0;
+            margin-top: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            transition: 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            background: #ff6b35;
+            color: white;
+        }
+
+        .feature-item:hover i {
+            color: white;
+        }
+
+        .feature-item i {
+            font-size: 2.5rem;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        /* about */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: #334155;
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .about-signature {
+            display: flex;
+            align-items: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .about-signature i {
+            font-size: 3rem;
+            color: #ff6b35;
+        }
+
+        .about-image {
+            background: #fff1ec;
+            padding: 2.5rem;
+            border-radius: 40% 60% 30% 70% / 50% 40% 60% 50%;
+            animation: float 6s infinite;
+            text-align: center;
+        }
+
+        .about-image i {
+            font-size: 12rem;
+            color: #ff6b35;
+            opacity: 0.7;
+        }
+
+        /* contact form & app */
+        .contact-area {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            border-radius: 60px 60px 0 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .contact-info h3, .form-wrap h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .contact-info i {
+            color: #ff6b35;
+            margin-right: 0.8rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        .app-badges {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: black;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .badge i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 1rem;
+        }
+
+        input::placeholder, textarea::placeholder, select {
+            color: rgba(255,255,255,0.7);
+        }
+
+        option {
+            background: #1e293b;
+            color: white;
+        }
+
+        .btn-submit {
+            background: #ff6b35;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .btn-submit:hover {
+            background: white;
+            color: #ff6b35;
+            border-color: #ff6b35;
+        }
+
+        footer {
+            background: #0b1a2a;
+            padding: 3rem 5% 1.5rem;
+            color: #cbd5e1;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b35, #fd9a6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .footer a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.7rem;
+            transition: 0.2s;
+        }
+
+        .footer a:hover {
+            color: #ff6b35;
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons i {
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .social-icons i:hover {
+            color: #ff6b35;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.8rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 950px) {
+            .hero { flex-direction: column; }
+            .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav class="navbar">
+        <div class="logo">SiddhivinayakTours</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <a href="#contact-form-section" class="btn-primary" style="padding: 0.7rem 1.8rem;">Book Ride</a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-content animate-up">
+            <h1>Discover <span class="hero-highlight">Amazing Destinations</span></h1>
+            <p class="animate-up delay-1">Experience the world with Siddhivinayak Tours. We provide premium travel experiences with reliable cab services and personalized itineraries for your perfect getaway.</p>
+            <div class="hero-buttons animate-up delay-2">
+                <a href="#services" class="btn-primary">Explore Our Services <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+                <a href="#contact" class="btn-outline">Plan Your Trip</a>
+            </div>
+        </div>
+        <div class="hero-image animate-right delay-1">
+            <i class="fas fa-car"></i>
+            <!-- representing premium fleet -->
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US (PREMIUM FEATURES) -->
+    <section class="why-us reveal" id="why">
+        <div style="text-align: center;">
+            <h2 class="section-title">Why Choose <span>Siddhivinayak Tours</span></h2>
+            <p class="section-subhead">We provide exceptional travel services with a focus on comfort, safety, and customer satisfaction.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-item reveal delay-1">
+                <i class="fas fa-car-side"></i>
+                <h3 style="margin-bottom: 6px;">Premium Fleet</h3>
+                <p style="opacity: 0.8;">Economy to luxury, well-maintained vehicles</p>
+            </div>
+            <div class="feature-item reveal delay-2">
+                <i class="fas fa-shield-alt"></i>
+                <h3 style="margin-bottom: 6px;">Safe & Secure</h3>
+                <p style="opacity: 0.8;">Experienced drivers, 24/7 monitoring</p>
+            </div>
+            <div class="feature-item reveal delay-3">
+                <i class="fas fa-headset"></i>
+                <h3 style="margin-bottom: 6px;">24/7 Support</h3>
+                <p style="opacity: 0.8;">Round-the-clock customer assistance</p>
+            </div>
+            <div class="feature-item reveal delay-4">
+                <i class="fas fa-calendar-check"></i>
+                <h3 style="margin-bottom: 6px;">Since 2005</h3>
+                <p style="opacity: 0.8;">18+ years of trust & excellence</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION (CAB, TAXI, PACKAGES) -->
+    <section id="services" style="background: white;">
+        <div style="text-align: center;">
+            <h2 class="section-title">Our <span>Services</span></h2>
+            <p class="section-subhead">Reliable, comfortable & tailored travel solutions – from city cabs to complete tour packages.</p>
+        </div>
+        <div class="card-grid">
+            <!-- Cab Service -->
+            <div class="service-card reveal delay-1">
+                <div class="service-icon"><i class="fas fa-car"></i></div>
+                <h3>Cab Service</h3>
+                <p style="color:#475569; margin-bottom: 1rem;">Reliable and comfortable cab services for local and outstation travel. Economy to luxury class.</p>
+                <ul class="service-feature">
+                    <li><i class="fas fa-check-circle"></i> 24/7 availability</li>
+                    <li><i class="fas fa-check-circle"></i> Professional drivers</li>
+                    <li><i class="fas fa-check-circle"></i> Well-maintained vehicles</li>
+                </ul>
+                <div style="margin-top: 2rem;">
+                    <a href="#" class="btn-outline" style="padding: 0.5rem 1.5rem;">Book Your Ride</a>
+                </div>
+            </div>
+            <!-- Taxi Booking -->
+            <div class="service-card reveal delay-2">
+                <div class="service-icon"><i class="fas fa-taxi"></i></div>
+                <h3>Taxi Booking</h3>
+                <p style="color:#475569; margin-bottom: 1rem;">Airport transfers, city tours, intercity — advance booking with transparent pricing.</p>
+                <ul class="service-feature">
+                    <li><i class="fas fa-check-circle"></i> Online & phone booking</li>
+                    <li><i class="fas fa-check-circle"></i> Fixed & transparent pricing</li>
+                    <li><i class="fas fa-check-circle"></i> GPS-enabled vehicles</li>
+                </ul>
+                <div style="margin-top: 2rem;">
+                    <a href="#" class="btn-outline" style="padding: 0.5rem 1.5rem;">Book Taxi</a>
+                </div>
+            </div>
+            <!-- Travel Packages -->
+            <div class="service-card reveal delay-3">
+                <div class="service-icon"><i class="fas fa-suitcase"></i></div>
+                <h3>Travel Packages</h3>
+                <p style="color:#475569; margin-bottom: 1rem;">Customized itineraries for individuals, families & groups — accommodation & guided tours.</p>
+                <ul class="service-feature">
+                    <li><i class="fas fa-check-circle"></i> Personalized itineraries</li>
+                    <li><i class="fas fa-check-circle"></i> All-inclusive packages</li>
+                    <li><i class="fas fa-check-circle"></i> Expert travel guidance</li>
+                </ul>
+                <div style="margin-top: 2rem;">
+                    <a href="#" class="btn-outline" style="padding: 0.5rem 1.5rem;">Plan Your Trip</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION with team commitment -->
+    <section id="about" class="reveal" style="background: #fef8f6;">
+        <div class="about-grid">
+            <div class="about-content">
+                <h2>Your Journey, <span style="color:#ff6b35;">Our Commitment</span> Since 2005</h2>
+                <p>Siddhivinayak Tours was founded with a simple mission: to make travel accessible, comfortable, and memorable for everyone. With over 18 years of experience in the travel industry, we have built a reputation for reliability and excellence.</p>
+                <p>Our team comprises experienced travel professionals who are passionate about creating perfect travel experiences. We understand that every journey is unique, which is why we offer personalized services tailored to your specific needs and preferences.</p>
+                <p>From local cab services to complete travel packages, we handle every aspect of your journey with meticulous attention to detail. Our fleet of well-maintained vehicles and professional drivers ensure your safety and comfort throughout your travels.</p>
+                <div class="about-signature">
+                    <i class="fas fa-users"></i>
+                    <div><strong style="font-size: 1.3rem;">Siddhivinayak Tours Team</strong><br><span style="color: #ff6b35;">Your journey, our family</span></div>
+                </div>
+            </div>
+            <div class="about-image">
+                <i class="fas fa-map-marked-alt"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT + TRAVEL REQUEST / APP -->
+    <section id="contact" class="contact-area reveal">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 class="section-title" style="color: white;">Contact <span style="color:#ff9e7a;">Us</span></h2>
+            <p style="color: #e2e8f0; font-size: 1.2rem;">Reach out through any channel for your travel needs</p>
+        </div>
+        <div class="contact-grid">
+            <!-- left side: connect, app, office info -->
+            <div class="contact-info">
+                <h3 style="color: white;">Connect With Us</h3>
+                <p style="color: #cbd5e1; margin-bottom: 2rem;">We're here to help you plan your perfect journey. Whether you need a quick cab ride or a complete travel package, our team is ready to assist.</p>
+                <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> 123 Travel Street, City Center, Mumbai</div>
+                <div class="contact-detail"><i class="fas fa-phone-alt"></i> +91 98765 43210</div>
+                <div class="contact-detail"><i class="fas fa-envelope"></i> info@siddhivinayaktours.com</div>
+                
+                <h4 style="color: white; margin-top: 2.5rem; margin-bottom: 1rem;">Download Our App</h4>
+                <p style="color: #cbd5e1;">Book rides & manage trips conveniently.</p>
+                <div class="app-badges">
+                    <div class="badge"><i class="fab fa-google-play"></i> <span>Google Play</span></div>
+                    <div class="badge"><i class="fab fa-apple"></i> <span>App Store</span></div>
+                </div>
+                <div style="margin-top: 2.5rem;">
+                    <h4 style="color: white;">Follow Us</h4>
+                    <div class="social-icons">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- right side: travel request form -->
+            <div class="form-wrap" id="contact-form-section">
+                <h3 style="color: white;">Send us Your Travel Requirements</h3>
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Full Name" value="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Mobile Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <select>
+                            <option>Select a service</option>
+                            <option>Cab Service</option>
+                            <option>Taxi Booking</option>
+                            <option>Travel Packages</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="4" placeholder="Message / Requirements - destination, dates, number of people, etc."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit"><i class="fas fa-paper-plane" style="margin-right: 8px;"></i>Send Travel Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">SiddhivinayakTours</div>
+                <p style="margin-bottom: 1.2rem; color: #cbd5e1;">Your trusted partner for memorable travel experiences since 2005. We specialize in cab services, taxi bookings, and customized travel packages.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div>
+                <h4 style="color: white; margin-bottom: 1.5rem;">Quick Links</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+            <div>
+                <h4 style="color: white; margin-bottom: 1.5rem;">Visit Our Office</h4>
+                <p><i class="fas fa-map-pin" style="color:#ff6b35; margin-right: 8px;"></i>123 Travel Street, City Center, Mumbai</p>
+                <p style="margin-top: 1rem;"><i class="fas fa-phone" style="color:#ff6b35;"></i> +91 98765 43210</p>
+                <p><i class="fas fa-envelope" style="color:#ff6b35;"></i> info@siddhivinayaktours.com</p>
+            </div>
+            <div>
+                <h4 style="color: white; margin-bottom: 1.5rem;">Support</h4>
+                <a href="#">24/7 Helpline</a>
+                <a href="#">FAQs</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 ARRC techie. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff6b35;"></i> for Siddhivinayak Tours
+        </div>
+    </footer>
+
+    <!-- REVEAL ON SCROLL SCRIPT (simple) -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // initial reveal for elements with .animate-up, .animate-right are already animated via CSS delay
+            // but scroll reveal for .reveal
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 100;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    } else {
+                        // optional: remove class if out of view? we keep active persistent.
+                    }
+                }
+            }
+            window.addEventListener("scroll", reveal);
+            reveal(); // trigger once
+
+            // manual animation for initial hero — they already have opacity:0, but set visible after small delay? we use CSS animations. 
+            // set active on reveal items that are visible
+        });
+
+        // force .reveal to become visible using active class
+        // also add some hover interactions 
+    </script>
+    <style>
+        /* ensure reveal becomes visible */
+        .reveal.active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+        .service-card .btn-outline {
+            transition: 0.3s;
+        }
+        .service-card:hover .btn-outline {
+            background: #ff6b35;
+            color: white;
+            border-color: #ff6b35;
+        }
+        /* small tweaks */
+        input, select, textarea {
+            color: white;
+        }
+        option {
+            background: #1e293b;
+        }
+        .badge {
+            transition: 0.2s;
+        }
+        .badge:hover {
+            background: #ff6b35;
+            border-color: #ff6b35;
+        }
+        .navbar .btn-primary {
+            animation: pulseGlow 3s infinite;
+        }
+    </style>
+</body>
+</html>
